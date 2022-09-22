@@ -1,4 +1,5 @@
 # Linux
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Automating Linux Administrative tasks
 sudo apt update ̃̃&& sudo apt install ansible
 ansible --version
@@ -46,5 +47,16 @@ ansible -i ./hosts servers -m shell -a "ip address show def eth0" | grep ether |
 Chay la biet
 ansible -i ./hosts servers -m shell -a "ip address show def eth0" | grep ether | cut -d' ' -f6" | grep -v ">>"
 chiu
-
+vim backup.sh
+#!/bin/bash
+tar -cfz /root/etc-$(date +%F).tar.gz /etc 
+ansible -i ./hosts servers -m script -a "./backup.sh" --become -K
+--become mean  run the script on the remote host as root or become root
+ssh -l student ip
+sudo ls /root/
+exit
+vim hosts
+ansible_become_pass=ansible123-
+Giup chay may remote ko can mat khau
+ansible -i ./hosts servers -m script -a "./backup.sh" --become
 
